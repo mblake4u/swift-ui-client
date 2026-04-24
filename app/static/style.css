@@ -134,6 +134,11 @@ main {
 
 .empty { color: var(--muted); }
 
+.ref { font-size: 11px; color: var(--muted); }
+
+.svc-fin     { background: #1a3a5c; color: #7ec8e3; }
+.svc-interact { background: #2d1a4a; color: #c9a6f5; }
+
 /* Detail card */
 .detail-card {
   background: var(--surface);

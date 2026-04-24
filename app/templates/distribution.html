@@ -10,9 +10,35 @@
 <section class="detail-card">
   <dl>
     {% for key, value in distribution.items() %}
-    <dt>{{ key }}</dt>
-    <dd>{{ value if value is not none else '—' }}</dd>
+      {% if key != 'links' and value is not none %}
+        <dt>{{ key }}</dt>
+        <dd>{{ value }}</dd>
+      {% endif %}
     {% endfor %}
   </dl>
 </section>
+
+{% if distribution.links %}
+<section class="detail-card" style="margin-top: 16px;">
+  <h2 style="font-size:13px; color:var(--muted); margin-bottom:12px; text-transform:uppercase; letter-spacing:.05em;">Links</h2>
+  <table class="dist-table">
+    <thead>
+      <tr>
+        <th>Relation</th>
+        <th>Method</th>
+        <th>URL</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for link in distribution.links %}
+      <tr>
+        <td>{{ link.rel }}</td>
+        <td>{{ link.type }}</td>
+        <td class="ref">{{ link.href }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endif %}
 {% endblock %}

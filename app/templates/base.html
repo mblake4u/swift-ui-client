@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}SwiftOps{% endblock %}</title>
   <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+  <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
   <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
@@ -13,7 +14,7 @@
       <a href="/" class="brand">SwiftOps</a>
       <span class="subtitle">Swift Alliance Cloud Dashboard</span>
       <div class="stack-status"
-           hx-get="/api/status"
+           hx-get="/partials/status"
            hx-trigger="load, every 30s"
            hx-swap="innerHTML">
         <span class="dot grey"></span> checking…

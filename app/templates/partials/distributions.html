@@ -3,18 +3,20 @@
   <thead>
     <tr>
       <th>ID</th>
-      <th>Name</th>
-      <th>Status</th>
-      <th>Created</th>
+      <th>Service</th>
+      <th>Type</th>
+      <th>Tag</th>
+      <th>Cloud Reference</th>
     </tr>
   </thead>
   <tbody>
     {% for d in distributions %}
     <tr>
       <td><a href="/distributions/{{ d.id }}">{{ d.id }}</a></td>
-      <td>{{ d.name | default('—') }}</td>
-      <td><span class="badge {{ d.status | lower | default('unknown') }}">{{ d.status | default('unknown') }}</span></td>
-      <td>{{ d.created_at | default('—') }}</td>
+      <td><span class="badge svc-{{ d.service | lower }}">{{ d.service }}</span></td>
+      <td>{{ d.type | default('—') }}</td>
+      <td>{{ d.distribution_tag | default('—') }}</td>
+      <td class="ref">{{ d.message_cloud_reference | default('—') }}</td>
     </tr>
     {% endfor %}
   </tbody>
