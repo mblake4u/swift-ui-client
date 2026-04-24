@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — SwiftOps{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <h1>Distributions</h1>
+  <p class="hint">Live from Swift Alliance Cloud sandbox via proxy</p>
+</section>
+
+<section class="distributions"
+         hx-get="/api/distributions"
+         hx-trigger="load, every 30s"
+         hx-swap="innerHTML"
+         hx-indicator="#spinner">
+  <span id="spinner" class="htmx-indicator">Loading…</span>
+</section>
+{% endblock %}

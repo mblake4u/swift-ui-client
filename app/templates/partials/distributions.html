@@ -1,0 +1,24 @@
+{% if distributions %}
+<table class="dist-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Status</th>
+      <th>Created</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for d in distributions %}
+    <tr>
+      <td><a href="/distributions/{{ d.id }}">{{ d.id }}</a></td>
+      <td>{{ d.name | default('—') }}</td>
+      <td><span class="badge {{ d.status | lower | default('unknown') }}">{{ d.status | default('unknown') }}</span></td>
+      <td>{{ d.created_at | default('—') }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="empty">No distributions found.</p>
+{% endif %}

@@ -1,0 +1,5 @@
+{% for name, state in status.items() %}
+<span class="dot {{ 'green' if state == 'ok' else 'red' }}"></span>
+{{ name.replace('_', ' ') }}: {{ state }}
+{% if not loop.last %} &nbsp;|&nbsp; {% endif %}
+{% endfor %}
