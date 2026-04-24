@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches: [dev, main]
+  pull_request:
+    branches: [dev]
+
+jobs:
+  audit:
+    name: Security audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install pip-audit
+      - run: pip-audit -r requirements.txt
+
+  build:
+    name: Docker build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t everyday-ai/swift-ui-client:ci .
+
+  smoke:
+    name: Smoke tests
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t everyday-ai/swift-ui-client:ci .
+
+      - name: Start container
+        run: |
+          docker run -d \
+            --name swift-ui-client \
+            -e PROXY_BASE_URL=http://localhost:1/proxy \
+            -e TOKEN_SERVER_URL=http://localhost:1 \
+            -e SWAGGER_UI_URL=http://localhost:1 \
+            -p 84:8080 \
+            everyday-ai/swift-ui-client:ci
+
+      - name: Wait for health
+        run: |
+          for i in $(seq 1 30); do
+            curl -sf http://localhost:84/health && break
+            sleep 1
+          done
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install pytest httpx
+
+      - name: Run smoke tests (no proxy required)
+        run: pytest tests/ -v
+
+      # The distributions test is skipped above (requires --run-live).
+      # To run the full suite locally with a live stack:
+      #   pytest tests/ -v --run-live
