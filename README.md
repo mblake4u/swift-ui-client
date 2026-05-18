@@ -4,9 +4,11 @@ FastAPI + HTMX dashboard for the Swift Alliance Cloud API. Provides a
 business-focused interface to Swift distributions data, with live auto-refreshing
 via HTMX and a JSON API layer ready for a future React frontend.
 
-Part of the **SwiftOps** stack — requires
+Part of the **[SwiftOps](https://github.com/mblake4u/swiftops)** stack — requires
 [`swift-token-server`](https://github.com/mblake4u/swift-token-server) running
 on port 82.
+
+> **Status note (2026-05):** SwiftOps closed out as an open-source portfolio piece. This dashboard continues to work. See the [SwiftOps devlog](https://github.com/mblake4u/swiftops/blob/main/docs/DEVLOG.md) for the full project arc.
 
 ## Features
 
@@ -19,8 +21,8 @@ on port 82.
 ## Quick start
 
 ```bash
-# Run the full stack (token-server + swagger-ui + ui-client)
-cd ~/dev/github && docker compose up -d
+# Run the full stack (token-server + swagger-ui + ui-client + mcp-gateway)
+cd ~/dev/github/mblake4u/swiftops && docker compose up -d
 
 # Or run ui-client standalone (requires token-server accessible)
 docker run -d \
@@ -83,7 +85,9 @@ FastAPI also auto-generates interactive docs at `/docs`.
 
 ## Related
 
+- [`swiftops`](https://github.com/mblake4u/swiftops) — orchestration repo + project hub + devlog
 - [`swift-token-server`](https://github.com/mblake4u/swift-token-server) — OAuth token service and proxy (required)
 - [`swift-swagger-ui`](https://github.com/mblake4u/swift-swagger-ui) — Swagger UI for the API spec
+- [`swift-mcp-gateway`](https://github.com/mblake4u/swift-mcp-gateway) — MCP server exposing Swift API as Claude tools
 - [Swift Developer Portal](https://developer.swift.com)
 - [ADR-001: Python UI Client Stack](docs/ADR-001-python-ui-client-stack.md)
